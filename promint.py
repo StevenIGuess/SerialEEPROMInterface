@@ -39,7 +39,8 @@ def main():
     
 
 
-    if sys.argv[1] == 'r': 
+    if sys.argv[1] == 'r':
+        input("Wait for Led to turn on and press Enter")
         command = "dump " + input("How many bytes to read? (rounded to 16)\n:")
         command += str('\n')
         ser.write(command.encode(encoding = 'ascii', errors = 'strict'))
@@ -71,6 +72,7 @@ def main():
             exit()
                 
     elif sys.argv[1] == 'w':
+        input("Wait for Led to turn on and press Enter")
         if len(sys.argv) == 4:
             try:
                 with open(sys.argv[3], 'rb') as f:
@@ -102,18 +104,9 @@ def main():
             ser.write(command.encode(encoding = 'ascii', errors = 'strict'))
             v = ser.read(3)
             print(f"Successfully wrote byte {hex(hex_val)}at addr {hex(hex_addr)}" if str(v, 'UTF-8') == "SUC" else "Something went wrong")
-
-
-            
-
-                
     else:
         sys.stderr.write(f"Usage: {sys.argv[0]} r/w PORT [outfile/infile]")
         exit()
-    
-    
-
-
 
 if __name__ == '__main__':
     main()
